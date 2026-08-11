@@ -4,7 +4,7 @@ description: Guidelines for working with MagicPath through the MagicPath MCP ser
 compatibility: Requires the MagicPath MCP server provided by this plugin (network access to MagicPath). A browser enables OAuth sign-in and canvas viewing.
 metadata:
   author: MagicPathAI
-  source: https://github.com/newcompute-ai/magicpath-agent-plugin
+  source: https://github.com/MagicPathAI/magicpath-agent-plugin
 ---
 
 # MagicPath

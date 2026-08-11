@@ -9,7 +9,7 @@
     "url": "https://www.magicpath.ai"
   },
   "homepage": "https://www.magicpath.ai",
-  "repository": "https://github.com/newcompute-ai/magicpath-agent-plugin",
+  "repository": "https://github.com/MagicPathAI/magicpath-agent-plugin",
   "license": "MIT",
   "keywords": ["magicpath", "design", "ui-components", "design-system", "design-to-code", "mcp", "canvas"]
 }
