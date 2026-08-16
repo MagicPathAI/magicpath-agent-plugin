@@ -134,7 +134,7 @@ Ask before writing outside the user's current project or into a global agent con
 3. **Check the active project** — if the user references "the project I have open," "this project," "what I'm working on," or otherwise implies a working project context without naming a specific component, call `active-project`. It returns the project(s) the user currently has open in their browser, even when nothing is selected. If it returns one project, treat it as the working project and skip the project picker. If it returns multiple, list them and ask which one. If it returns an empty list, the user has no canvas open — reach for `list-projects` and ask the user. Pick the right capability for what the user said: `selection` for a referenced component, `active-project` for a referenced project, `list-projects` + ask if neither. (Note that `selection` also returns the active projects in its output, so when the user references a component you already get the project for free — no separate `active-project` call needed.)
 4. **Find components** — use `search` to search across all projects, or `list-projects` then `list-components` to browse. If `active-project` already gave you a project, scope to it via `list-components` instead of searching every workspace.
 5. **See a project's images** — to know which standalone images already live on a project's canvas (to reference them, avoid duplicating them, or describe them to the user), call `image list` for the project and download each `url` to view it — the same way you use `previewImageUrl` for components. (These are canvas images, separate from the `assets/` build inputs in the authoring flow.)
-   For a **standalone raster request** — a photograph, illustration, texture, or transparent cutout — use the `image generate` capability rather than building a canvas design; pass reference images to edit or restyle an existing photo. Place the result on a canvas with `image add`, or feed it into an authoring session as an asset. See the [tool reference](references/tool-reference.md).
+   For a **standalone raster request** — a photograph, illustration, texture, or transparent cutout — use the `image generate` capability rather than building a canvas design; pass reference images to edit or restyle an existing photo. Place the result on a canvas with `image add`, or feed it into an authoring session as an asset. Use the live tool schema for supported inputs and limits.
 6. **Understand components visually** — `search` and `list-components` results include a `previewImageUrl` field. Download and analyze these images to understand what each component looks like before recommending it. Preview images are for your own understanding — do not navigate the embedded project canvas to an individual design preview unless the user explicitly asks to see that design there.
 7. **Confirm with the user (STOP and wait)** — unless the user specified an exact generatedName, tell the user what you found (name, generatedName, project) and ask if it's the right component. When an embedded project canvas is active, keep it on the project and only open or share an individual design if the user explicitly asks. Without an embedded project canvas, get the component's URL via `share` and give it to the user as the normal confirmation fallback. If multiple matches, list them all and ask which one. **This is a STOP point — end your response here and wait for the user to reply. Do NOT proceed until the user explicitly confirms.** Do not fetch source for installation yet.
 
@@ -338,11 +338,11 @@ You are an engineer, not a screenshot generator. Every canvas component must be 
 
 Never submit `package.json`, `vite.config.*`, `src/main.tsx`, lockfiles, or any other path — they will be rejected.
 
-**Image assets.** Stage local image files under the session's `assets/` surface and reference them from code or CSS, for example `../../../assets/hero.png`, `/assets/hero.png`, or `url("../../assets/hero.png")`. MagicPath uploads these temporary assets, rewrites references to stable public asset URLs, and removes the `assets/` staging area before build. Do not inline `data:image/...;base64,...`; if you encounter base64 image data, move it into an asset file instead.
+**Image assets.** Place local image files under the session's temporary `assets/` surface and reference them from code or CSS, for example `../../../assets/hero.png`, `/assets/hero.png`, or `url("../../assets/hero.png")`. MagicPath uploads these build inputs, rewrites references to stable public asset URLs, and removes the temporary `assets/` area before build. Do not inline `data:image/...;base64,...`; if you encounter base64 image data, move it into an asset file instead.
 
 **Selected canvas images.** When the user has selected image shapes on the canvas before `code start`, the session includes them as `selectedImages`, each with a short-lived `accessUrl` and a stable `assetPath` under `assets/selected/**`. Use the `assetPath` in imports or CSS. Do not use `accessUrl` directly because it expires.
 
-**Deleting and renaming source files is supported in edit mode.** Remove an editable source file from the session and `code submit` propagates the deletion. A rename is a delete + a write in the same submit. Assets are temporary staging inputs and are not deleted from the server by removing them locally. In create mode, there's nothing to delete; just don't write the file.
+**Deleting and renaming source files is supported in edit mode.** Remove an editable source file from the session and `code submit` propagates the deletion. A rename is a delete + a write in the same submit. Assets are temporary build inputs and are not deleted from the server by removing them locally. In create mode, there's nothing to delete; just don't write the file.
 
 **Do not use source-fetch/install capabilities for this workflow.** They read MagicPath-side source for installing into another app. The authoring flow edits components on the user's MagicPath canvas — they are separate flows and must not be mixed.
 
@@ -385,26 +385,6 @@ The MagicPath template uses Tailwind v4. Style this way:
 
 If you need to check job status after the fact (for example, after submitting without waiting), call `code status` with the job ID. It returns one of `pending`, `processing`, `completed`, `failed`, or `cancelled`.
 
-## Capability Quick Reference
-
-Resolve each capability to the current tool on the `magicpath` server; full details in the [tool reference](references/tool-reference.md).
-
-| Area | Capability | Purpose |
-|---|---|---|
-| Identity | `whoami` / `info` | Auth status, user, teams, projects |
-| Canvas context | `selection` | Selected components (with `selectedRevisionId`), selected images, open projects |
-| Canvas context | `active-project` | Project(s) the user has open (lighter than `selection`) |
-| Discovery | `search` | Find components across workspaces (team/personal filters) |
-| Discovery | `list-projects` / `list-components` | Browse projects, then components (`previewImageUrl`, `lastEditedBy`, created-by filter, cursor pagination) |
-| Teams | `list-teams` / `list-members` | Workspaces and people (resolve names to user IDs) |
-| Projects | `create-project` | New personal or team project |
-| Links | `share` | URL for a component or project (never opens anything itself) |
-| Source out | component source (`inspect` / revision-aware fetch) | Read full source, dependencies, `importStatement` — installation and export input |
-| Themes | `list-themes` / `get-theme` | Design systems: CSS variable maps, fonts, designer `prompt` |
-| Images | `image list` / `image add` / `image generate` | Canvas images and AI raster generation/editing |
-| MagicPath skills | `skills list/get/create/update/import/delete` | Manage skills stored in MagicPath |
-| Authoring | `code start` / `code submit` / `code status` | Create or edit canvas components; build lifecycle |
-
 ## Key Concepts
 
 - Each component has a **generatedName** (e.g., `wispy-river-5234`) — this is the identifier for registry-style operations — and a numeric ID used by canvas/authoring capabilities. Revisions have their own IDs; `selection` tells you which revision the user is looking at.
@@ -417,7 +397,6 @@ Resolve each capability to the current tool on the `magicpath` server; full deta
 
 ## References
 
-- [Tool Reference](references/tool-reference.md) — the MagicPath MCP server's capability surface, expected inputs/outputs, and conventions
 - [Using MagicPath designs in local code](references/using-magicpath-designs-in-local-code.md) — export an exact component or revision, replace local UI, or translate a MagicPath design while preserving 1:1 fidelity and explicitly requested differences
 - [Working with repositories](references/working-with-repositories.md) — bring an existing local or online Git repository's UI onto the MagicPath canvas (e.g. "render this project in MagicPath", "bring the sidebar of my app into MagicPath")
 - [Working with embedded browsers](references/working-with-embedded-browsers.md) — use a MagicPath project as the persistent canvas inside Codex, Cursor, or another host with an in-app browser

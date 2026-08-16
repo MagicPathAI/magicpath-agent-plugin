@@ -3,7 +3,7 @@
   "mcpServers": {
     "magicpath": {
       "type": "streamable-http",
-      "url": "https://staging.api.magicpath.ai/mcp"
+      "url": "https://api.magicpath.ai/mcp"
     }
   }
 }
