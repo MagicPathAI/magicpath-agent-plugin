@@ -32,6 +32,9 @@ magicpath-agent-plugin/
 │       └── references/
 │           ├── using-magicpath-designs-in-local-code.md   # MagicPath → code
 │           └── bringing-code-to-the-canvas.md             # code → MagicPath
+├── .claude-plugin/                      # Claude Code compatibility shim (see below)
+│   ├── plugin.json                      # Claude manifest + inline MCP config
+│   └── marketplace.json                 # one-plugin catalog, source "./"
 ├── assets/
 │   └── magicpath.png                    # logo for marketplaces / client listings
 └── README.md
@@ -49,6 +52,17 @@ Authorization is client-managed, as the Agent Plugins spec prescribes: the clien
 ## Installation
 
 Distribution and installation are client-owned under the Agent Plugins spec. Any conformant client can load this plugin from a directory path. Client-specific branding or behavior, if ever needed, belongs under reverse-domain namespaces in the manifest `extensions` field or a namespaced top-level directory — the portable core stays as-is.
+
+### Claude Code
+
+Claude Code does not yet load the Agent Plugins format natively, so this repo also carries a `.claude-plugin/` compatibility shim — the namespaced-directory pattern the Agent Plugins spec sanctions for client-specific behavior. The shim is plumbing only (a Claude manifest with the MCP server declared inline, plus a one-plugin marketplace catalog whose `source` is the repo root); the skill and MCP definition remain single-sourced in the portable core. Install with:
+
+```bash
+claude plugin marketplace add MagicPathAI/magicpath-agent-plugin
+claude plugin install magicpath@magicpath
+```
+
+Then authenticate the MagicPath MCP server via `/mcp` inside a session. If Claude Code adopts the Agent Plugins format in the future, the shim can be deleted without touching the portable core.
 
 ## License
 
