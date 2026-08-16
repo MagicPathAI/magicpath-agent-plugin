@@ -1,18 +1,24 @@
 # MagicPath Agent Plugin
 
-The MagicPath plugin packaged in the open, vendor-neutral [Agent Plugins](https://agent-plugins.org) format (spec v1.0.0). Any Agent Plugins–conformant client can load this directory and get both components:
+The MagicPath plugin in the open, vendor-neutral [Agent Plugins](https://agent-plugins.org) format (spec v1.0.0). Any conformant client loads this directory and gets two components:
 
-- **An MCP server** — the remote MagicPath MCP server over Streamable HTTP, declared in `mcp.json`. All MagicPath platform operations (search, projects, components, themes, teams, canvas authoring, images, MagicPath skills) are performed through its tools.
-- **An Agent Skill** — `skills/magicpath-guidelines/` teaches the agent *how* to use those tools well: workflow selection, fidelity rules, canvas design defaults, and the boundaries between the install, authoring, and import directions.
+- **An MCP server** — the remote MagicPath MCP server over Streamable HTTP (`mcp.json`). Every MagicPath platform operation runs through its tools.
+- **An Agent Skill** — `skills/magicpath-guidelines/`, which teaches the agent what the server cannot: which direction a request travels, how to handle files and repositories on the host machine, and the design bar for canvas work.
 
-The MCP server is the source of truth for its tool catalog and schemas. Clients discover them through MCP `tools/list`; this package intentionally does not duplicate those definitions in a static reference.
+## Architecture: one writer per fact
 
-## What changed from the previous plugin
+The plugin is built on a strict layering rule — **every fact has exactly one authoritative home**, chosen by who can keep it true:
 
-This package replaces [MagicPathAI/agent-skills](https://github.com/MagicPathAI/agent-skills), which drove MagicPath through the `magicpath-ai` CLI (`npx -y magicpath-ai ...`). Two things are new:
+| Layer | Home | Carries | Why there |
+|---|---|---|---|
+| Trigger | skill frontmatter (~100 tokens, always loaded) | when to activate | the only always-on cost |
+| Judgment | `SKILL.md` body (loaded on trigger) | direction routing, host-side ground rules, two user gates, canvas Design Defaults | knowledge the server cannot know; stable across server releases |
+| Depth | `references/` (loaded on demand) | one playbook per direction: designs → local code, code → canvas | rarely both needed in one task |
+| Mechanics | the MCP server itself | tool names, schemas, session lifecycle, file boundaries, transport, auth, retry rules | delivered at call time, always current with the deployment |
 
-1. **Format:** the client-specific manifests (`.claude-plugin/`, `.codex-plugin/`, `.cursor-plugin/`, `.agents/`) are replaced by one portable package: a root `plugin.json`, components in fixed locations (`skills/`, `mcp.json`), per the Agent Plugins v1.0.0 specification.
-2. **Transport:** the CLI approach is retired. The plugin now connects to the remote MagicPath MCP server; the skill is renamed from `magicpath` to `magicpath-guidelines` because the MCP server *is* the MagicPath integration — the skill provides the guidelines for using it.
+The skill deliberately contains **no tool mechanics**. It points at the live tool list and at the server's own guidance resources (`magicpath://guide`, `magicpath://host-guidance`) for clients that don't surface MCP server instructions automatically. Its standing rule: *on any conflict between skill and live server, the server wins.*
+
+This design follows directly from how agents fail. Instruction-following collapses as instruction volume grows and especially when instructions conflict ([IFScale](https://arxiv.org/abs/2507.11538), [Instruction Stacking Collapse](https://arxiv.org/abs/2608.02639), [Context Rot](https://www.trychroma.com/research/context-rot)); a static tool reference inside a skill inevitably drifts against a live server and becomes a conflict generator. Meanwhile the MCP `instructions` field alone is not a substitute, because client support for it is inconsistent — so the skill carries the judgment layer portably and bridges to server-owned mechanics by pointer, not by copy.
 
 ## Package layout
 
@@ -22,11 +28,10 @@ magicpath-agent-plugin/
 ├── mcp.json                             # MagicPath MCP server (streamable-http)
 ├── skills/
 │   └── magicpath-guidelines/
-│       ├── SKILL.md                     # core workflow guidance
+│       ├── SKILL.md                     # routing, ground rules, gates, Design Defaults
 │       └── references/
-│           ├── using-magicpath-designs-in-local-code.md
-│           ├── working-with-repositories.md
-│           └── working-with-embedded-browsers.md
+│           ├── using-magicpath-designs-in-local-code.md   # MagicPath → code
+│           └── bringing-code-to-the-canvas.md             # code → MagicPath
 ├── assets/
 │   └── magicpath.png                    # logo for marketplaces / client listings
 └── README.md
@@ -39,7 +44,7 @@ The MCP server is an OAuth-protected resource:
 - Resource metadata: `https://api.magicpath.ai/.well-known/oauth-protected-resource/mcp`
 - Scopes: `magicpath:read`, `magicpath:write`
 
-Authorization is client-managed, as the Agent Plugins spec prescribes: the client discovers the authorization server, runs the OAuth flow, and stores credentials. Unauthenticated requests return `401` with a `WWW-Authenticate` challenge; an authorization failure is a connection failure for the server, not an invalid plugin. There is no `login` command anymore — users authenticate through their client's MCP authorization UI.
+Authorization is client-managed, as the Agent Plugins spec prescribes: the client discovers the authorization server, runs the OAuth flow, and stores credentials. Unauthenticated requests return `401` with a `WWW-Authenticate` challenge; an authorization failure is a connection failure for the server, not an invalid plugin. Users authenticate through their client's MCP authorization UI — there is no `login` command.
 
 ## Installation
 
