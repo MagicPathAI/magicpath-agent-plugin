@@ -1,6 +1,6 @@
 ---
 name: magicpath-guidelines
-description: Guidelines for working with MagicPath (the AI design canvas) through its MCP server. Use whenever a task involves MagicPath designs or components, projects or canvases, themes/design systems, teams, canvas selections, share links, or MagicPath skills — including installing or exporting MagicPath components into local code, making local UI match a design 1:1, recreating local files or Git repositories on the MagicPath canvas, and creating or editing interactive canvas components.
+description: Guidelines for working with MagicPath (the AI design canvas) through its MCP server. Use whenever a task involves MagicPath designs or components, projects or canvases, themes/design systems, teams, canvas selections, share links, or MagicPath skills — including installing or exporting MagicPath components into local code, making local UI match a design 1:1, recreating local files or Git repositories on the MagicPath canvas, and creating or editing interactive canvas components. Also use for FigJam-style drawing on the canvas with native shapes: diagrams, flowcharts, wireframes, user journeys, sticky-note boards, and annotations.
 compatibility: Requires the MagicPath MCP server provided by this plugin (network access). A browser enables OAuth sign-in and canvas viewing.
 metadata:
   author: MagicPathAI
@@ -32,6 +32,7 @@ Direction confusion is the main failure mode. Decide the direction first; load o
 |---|---|---|
 | Use, install, or export a MagicPath design in local code; make local UI match a design; translate a design to another framework | MagicPath → code | Read [Using MagicPath designs in local code](references/using-magicpath-designs-in-local-code.md) before writing any files |
 | Create or edit a design on the canvas, including recreating local or repository UI in MagicPath | code → MagicPath | Apply the Design Defaults below; for recreating existing code or repos, read [Bringing code to the canvas](references/bringing-code-to-the-canvas.md) first |
+| Draw diagrams, flowcharts, wireframes, sticky notes, or annotations on the canvas (FigJam-style), or arrange existing canvas shapes | canvas shapes | Read [Drawing on the canvas](references/drawing-on-the-canvas.md) first — components stay the default for anything meant to look real or behave |
 | Browse, search, share, or answer questions about projects, components, teams, themes, images, or MagicPath skills | read-only | Call the tools directly; no reference needed |
 
 Never mix directions. Install/export/inspect tools read MagicPath → code; code sessions write code → MagicPath. Never start a code session to serve an export, and never install source to serve a canvas edit.
