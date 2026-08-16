@@ -4,7 +4,7 @@
 
 Use this reference when taking a component **out of MagicPath**: exporting it to a folder, installing it in an application, replacing existing local UI with it, or adapting it for another framework while retaining the MagicPath design.
 
-All MagicPath data in this workflow comes from the `magicpath` MCP server's read-only capabilities (`selection`, the component source fetches, `share`). The server never writes local files — every file that lands on disk is written by you, from tool results. See the [tool reference](tool-reference.md) for the capability surface.
+All MagicPath data in this workflow comes from the `magicpath` MCP server's read-only capabilities (`selection`, the component source fetches, `share`). The server never writes local files — every file that lands on disk is written by you, from tool results. Resolve exact tool names and schemas from the server's live tool list before calling them.
 
 ## Contents
 
@@ -58,7 +58,7 @@ Distinguish these outcomes before writing files:
 
 | User intent | Destination | Preferred acquisition path |
 | --- | --- | --- |
-| "Export/download this design to a folder" | Source snapshot | Revision-aware source fetch, written into an empty staging/export directory |
+| "Export/download this design to a folder" | Source snapshot | Revision-aware source fetch, written into an empty temporary/export directory |
 | "Use/add this component in my React app" | Existing React/TypeScript application | Fetch source, review it, install it (write files + dependencies), then import and integrate |
 | "Make my existing local component match this design" | Existing application component or route | Exact source staged locally, then parity-first replacement |
 | "Use this in Vue/Swift/Python/etc." | Non-React target | Exact source as reference, then faithful translation |
@@ -83,13 +83,13 @@ This prevents ordinary integration work from quietly becoming a redesign.
 
 ### Exact selected revision or source-only export
 
-Use the **revision-aware source fetch** when revision fidelity matters. Fetch the component's source at the exact revision and write the returned files (`src/App.tsx`, `src/index.css`, `src/components/generated/**`) into a staging directory yourself, preserving the returned paths.
+Use the **revision-aware source fetch** when revision fidelity matters. Fetch the component's source at the exact revision and write the returned files (`src/App.tsx`, `src/index.css`, `src/components/generated/**`) into a temporary directory yourself, preserving the returned paths.
 
 If no revision was specified, the fetch defaults to the component's currently selected revision. Pass the revision whenever `selection` returned one, so the exported code cannot drift if the selected revision later changes.
 
 The fetch is intentionally read-only on the MagicPath side: it does not create a pending revision, show agent presence, or start an authoring session. And it does not produce a complete standalone application — the returned files are Component Forge source.
 
-- Write into an **empty staging directory** when integrating into an existing app. Never write the export into the app root, where similarly named files could be overwritten.
+- Write into an **empty temporary directory** when integrating into an existing app. Never write the export into the app root, where similarly named files could be overwritten.
 - Use the requested empty destination directly only for a source-only export.
 - Do not run `code start` for an export; it creates editing state on the canvas.
 - Do not run `code submit`; the direction of travel is out of MagicPath.
@@ -107,7 +107,7 @@ Use the registry path when the user wants to install and render a component iden
 
 The registry fetch identifies components by `generatedName`; it does not accept a revision. When the user means the exact revision currently displayed on the canvas, prefer the revision-aware fetch for the source snapshot, and use the registry fetch only for supplemental dependency/import metadata — verified against the imports in the revision snapshot.
 
-Only install when the component will be imported and rendered. A folder-only export uses the revision-aware fetch into a staging/export directory, not an install.
+Only install when the component will be imported and rendered. A folder-only export uses the revision-aware fetch into a temporary/export directory, not an install.
 
 After installing, use the returned `importStatement` and `usage` to import the installed component directly. Adapt the installed source in place; do not copy its JSX into a parent and leave an unused duplicate behind.
 
@@ -237,7 +237,7 @@ Also verify console output, failed network requests, missing fonts/assets, hydra
 ### Export the selected component to a source folder
 
 1. Call `selection` and capture the component and selected revision IDs.
-2. Ensure the destination is empty or use a staging directory.
+2. Ensure the destination is empty or use a temporary directory.
 3. Fetch the source at that exact revision and write the returned files into the destination, preserving paths.
 4. Inspect asset URLs and imports; localize assets if required for durability.
 5. If the user asked for source only, explain that the folder contains Component Forge source, not a standalone app.
@@ -247,7 +247,7 @@ Also verify console output, failed network requests, missing fonts/assets, hydra
 
 1. Resolve and capture the exact MagicPath source and render.
 2. Read the existing component, all callers, and its parent layout.
-3. Install from the registry fetch when the current component identified by `generatedName` is the intended source; otherwise pull the exact revision to staging with the revision-aware fetch and transplant all required source.
+3. Install from the registry fetch when the current component identified by `generatedName` is the intended source; otherwise pull the exact revision into a temporary directory with the revision-aware fetch and transplant all required source.
 4. Render the new component under a temporary import or route and establish visual parity.
 5. Add a compatibility interface for the old component's data and handlers.
 6. Verify visuals, behaviors, tests, and responsive states.
@@ -263,7 +263,7 @@ Also verify console output, failed network requests, missing fonts/assets, hydra
 
 ### Export several independent designs
 
-Use a separate staging directory per component/revision. Every export includes shared paths such as `src/App.tsx` and `src/index.css`; reusing one directory overwrites a previous export. Consolidate common tokens and dependencies only after each component has an independently verified baseline.
+Use a separate temporary directory per component/revision. Every export includes shared paths such as `src/App.tsx` and `src/index.css`; reusing one directory overwrites a previous export. Consolidate common tokens and dependencies only after each component has an independently verified baseline.
 
 ## Failure modes
 

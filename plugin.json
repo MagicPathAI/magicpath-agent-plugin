@@ -1,8 +1,8 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
-  "name": "magicpath-staging",
+  "name": "magicpath",
   "version": "0.1.0",
-  "description": "MagicPath Staging — give your agent a multiplayer canvas for your code. Connects to the MagicPath platform through the remote MagicPath MCP server (staging) and ships guidelines for using it as an Agent Skill.",
+  "description": "MagicPath — give your agent a multiplayer canvas for your code. Connects to the MagicPath platform through the remote MagicPath MCP server and ships guidelines for using it as an Agent Skill.",
   "author": {
     "name": "MagicPath",
     "email": "support@magicpath.ai",

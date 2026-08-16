@@ -1,11 +1,11 @@
-# MagicPath Agent Plugin (Staging)
+# MagicPath Agent Plugin
 
 The MagicPath plugin packaged in the open, vendor-neutral [Agent Plugins](https://agent-plugins.org) format (spec v1.0.0). Any Agent Plugins–conformant client can load this directory and get both components:
 
 - **An MCP server** — the remote MagicPath MCP server over Streamable HTTP, declared in `mcp.json`. All MagicPath platform operations (search, projects, components, themes, teams, canvas authoring, images, MagicPath skills) are performed through its tools.
 - **An Agent Skill** — `skills/magicpath-guidelines/` teaches the agent *how* to use those tools well: workflow selection, fidelity rules, canvas design defaults, and the boundaries between the install, authoring, and import directions.
 
-> **Staging:** This is the testing-phase package, published as `magicpath-staging`. It targets the staging MCP endpoint at `https://staging.api.magicpath.ai/mcp`. The production release will be published as `magicpath` against the production endpoint.
+The MCP server is the source of truth for its tool catalog and schemas. Clients discover them through MCP `tools/list`; this package intentionally does not duplicate those definitions in a static reference.
 
 ## What changed from the previous plugin
 
@@ -24,7 +24,6 @@ magicpath-agent-plugin/
 │   └── magicpath-guidelines/
 │       ├── SKILL.md                     # core workflow guidance
 │       └── references/
-│           ├── tool-reference.md        # MCP tool surface, capability by capability
 │           ├── using-magicpath-designs-in-local-code.md
 │           ├── working-with-repositories.md
 │           └── working-with-embedded-browsers.md
@@ -37,7 +36,7 @@ magicpath-agent-plugin/
 
 The MCP server is an OAuth-protected resource:
 
-- Resource metadata: `https://staging.api.magicpath.ai/.well-known/oauth-protected-resource/mcp`
+- Resource metadata: `https://api.magicpath.ai/.well-known/oauth-protected-resource/mcp`
 - Scopes: `magicpath:read`, `magicpath:write`
 
 Authorization is client-managed, as the Agent Plugins spec prescribes: the client discovers the authorization server, runs the OAuth flow, and stores credentials. Unauthenticated requests return `401` with a `WWW-Authenticate` challenge; an authorization failure is a connection failure for the server, not an invalid plugin. There is no `login` command anymore — users authenticate through their client's MCP authorization UI.

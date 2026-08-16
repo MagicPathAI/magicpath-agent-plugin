@@ -4,7 +4,7 @@
 >
 > For the opposite direction—exporting a MagicPath design or replacing local UI with one—use [Using MagicPath designs in local code](using-magicpath-designs-in-local-code.md).
 
-This reference tells an external agent (Claude Code, Codex, Cursor, etc.) exactly what to do when the user wants to take UI that already exists in a Git repository — local or online — and reproduce it faithfully as a React component on their MagicPath canvas. All canvas operations go through the `magicpath` MCP server's authoring capabilities; see the [tool reference](tool-reference.md).
+This reference tells an external agent (Claude Code, Codex, Cursor, etc.) exactly what to do when the user wants to take UI that already exists in a Git repository — local or online — and reproduce it faithfully as a React component on their MagicPath canvas. All canvas operations go through the `magicpath` MCP server's authoring capabilities. Resolve exact tool names and schemas from the server's live tool list before calling them.
 
 ## When this applies (triggers)
 
@@ -93,7 +93,7 @@ Pin down exactly what the user asked for and read everything it depends on.
 
 ## Phase 4 — Build it on the canvas
 
-Use the **create** path of the authoring flow. (Full capability details live in the [tool reference](tool-reference.md).)
+Use the **create** path of the authoring flow.
 
 1. **Resolve a project.** You need a project ID. Call `active-project` if the user has one open, otherwise ask or `create-project`. (See the skill's *Creating a project* section.)
 2. **Start the session before writing files** so the user sees agent presence on the canvas: call `code start` with the project ID, the component's name, and the planned canvas dimensions.
