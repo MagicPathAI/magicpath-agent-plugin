@@ -1,5 +1,5 @@
 ---
-name: magicpath-guidelines
+name: magicpath
 description: >-
   Guidelines for working with MagicPath (the AI design canvas) through its MCP server. Use whenever a task involves MagicPath designs or components, projects or canvases, themes/design systems, teams, canvas selections, share links, or MagicPath skills — including installing or exporting MagicPath components into local code, making local UI match a design 1:1, recreating local files or Git repositories on the MagicPath canvas, and creating or editing interactive canvas components. Also use for FigJam-style drawing on the canvas with native shapes: diagrams, flowcharts, wireframes, user journeys, sticky-note boards, and annotations.
 compatibility: Requires the MagicPath MCP server provided by this plugin (network access). A browser enables OAuth sign-in and canvas viewing.
