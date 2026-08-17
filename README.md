@@ -3,7 +3,7 @@
 The MagicPath plugin in the open, vendor-neutral [Agent Plugins](https://agent-plugins.org) format (spec v1.0.0). Any conformant client loads this directory and gets two components:
 
 - **An MCP server** — the remote MagicPath MCP server over Streamable HTTP (`mcp.json`). Every MagicPath platform operation runs through its tools.
-- **An Agent Skill** — `skills/magicpath-guidelines/`, which teaches the agent what the server cannot: which direction a request travels, how to handle files and repositories on the host machine, and the design bar for canvas work.
+- **An Agent Skill** — `skills/magicpath/`, which teaches the agent what the server cannot: which direction a request travels, how to handle files and repositories on the host machine, and the design bar for canvas work.
 
 ## Architecture: one writer per fact
 
@@ -27,11 +27,12 @@ magicpath-agent-plugin/
 ├── plugin.json                          # Agent Plugins manifest (identity + metadata)
 ├── mcp.json                             # MagicPath MCP server (streamable-http)
 ├── skills/
-│   └── magicpath-guidelines/
+│   └── magicpath/
 │       ├── SKILL.md                     # routing, ground rules, gates, Design Defaults
 │       └── references/
 │           ├── using-magicpath-designs-in-local-code.md   # MagicPath → code
-│           └── bringing-code-to-the-canvas.md             # code → MagicPath
+│           ├── bringing-code-to-the-canvas.md             # code → MagicPath
+│           └── drawing-on-the-canvas.md                   # native canvas shapes
 ├── .claude-plugin/                      # Claude Code compatibility shim (see below)
 │   ├── plugin.json                      # Claude manifest + inline MCP config
 │   └── marketplace.json                 # one-plugin catalog, source "./"

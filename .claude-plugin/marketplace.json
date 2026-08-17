@@ -1,7 +1,7 @@
 {
   "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "magicpath",
-  "description": "Official MagicPath plugin marketplace: the remote MagicPath MCP server plus the magicpath-guidelines Agent Skill.",
+  "description": "Official MagicPath plugin marketplace: the remote MagicPath MCP server plus the MagicPath Agent Skill.",
   "owner": {
     "name": "MagicPath",
     "email": "support@magicpath.ai",
@@ -11,7 +11,7 @@
     {
       "name": "magicpath",
       "source": "./",
-      "description": "MagicPath — give your agent a multiplayer canvas for your code. Remote MagicPath MCP server plus the magicpath-guidelines Agent Skill."
+      "description": "MagicPath — give your agent a multiplayer canvas for your code. Remote MagicPath MCP server plus the MagicPath Agent Skill."
     }
   ]
 }
