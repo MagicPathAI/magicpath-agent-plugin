@@ -26,6 +26,8 @@ This design follows directly from how agents fail. Instruction-following collaps
 magicpath-agent-plugin/
 ├── plugin.json                          # Agent Plugins manifest (identity + metadata)
 ├── mcp.json                             # MagicPath MCP server (streamable-http)
+├── .codex-plugin/
+│   └── plugin.json                      # ChatGPT/Codex listing metadata
 ├── skills/
 │   └── magicpath/
 │       ├── SKILL.md                     # routing, ground rules, gates, Design Defaults
@@ -37,7 +39,9 @@ magicpath-agent-plugin/
 │   ├── plugin.json                      # Claude manifest + inline MCP config
 │   └── marketplace.json                 # one-plugin catalog, source "./"
 ├── assets/
-│   └── magicpath.png                    # logo for marketplaces / client listings
+│   ├── composer.png                     # ChatGPT/Codex composer icon
+│   ├── directory.png                    # ChatGPT/Codex directory logo
+│   └── magicpath.png                    # general marketplace/client logo
 └── README.md
 ```
 
