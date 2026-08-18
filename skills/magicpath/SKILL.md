@@ -68,9 +68,17 @@ Every component you create or edit on the canvas follows these rules unless the 
 
 Craft bar: deliberate visual hierarchy, strong typography, restrained color, semantic HTML, visible focus styles, and polished loading/empty/error states.
 
-## Embedded browser as a canvas
+## Put the user on the canvas before you work
 
-When the host has an embedded browser and the user is working visually, keep the **project** canvas open beside you: resolve the URL with the share-URL tool and navigate there. Do not open individual design previews unless explicitly asked — submitted work appears on the project canvas. When creating a new project for visual work, open its canvas before authoring into it. MCP authorization and the browser pane's login are separate sessions: if the project URL redirects to sign-in, ask the user to sign in inside that pane, then reopen the same URL. Do not open a browser for background or read-only work.
+Watching the agent build live on the canvas is the core MagicPath experience. Never make the user wait until the end for a link — by then the show is over.
+
+- At the start of any canvas-writing work (component authoring or shape drawing), check whether the working project is already open among the user's active projects. If it is, they are watching; continue.
+- If it is not, resolve the project's URL with the share-URL tool as soon as the project exists — right after choosing or creating it, or right after the session that auto-creates it — and put the user on it **before** the long work begins.
+- With an embedded browser in the host, navigate it to the project URL and keep it there while you work.
+- Without one, give the user the link immediately as its own short message or opening line ("Watch live: <url>"), then continue building. Delivering the link only in the final summary is a failure of this rule.
+- Stay on the **project** canvas; do not open individual design previews unless explicitly asked — submitted work appears on the project canvas.
+- MCP authorization and the browser's login are separate sessions: if the project URL redirects to sign-in, have the user sign in there, then reopen the same URL.
+- Keep the browser quiet for background or read-only work (listing, searching, fetching source, installing into local code).
 
 ## Themes
 

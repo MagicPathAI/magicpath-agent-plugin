@@ -23,6 +23,7 @@ Shape work is its own direction: no code session, no working directory, no build
 
 The server owns the mechanics — read the canvas-management section of its instructions and the tool descriptions for pacing, parent-relative coordinates, stacking, refusal rules, and its warnings about undo. The craft below is what the tools cannot decide for you.
 
+- **Put the user on the canvas first.** If the project isn't already open among their active projects, share its link before the first shape lands (the skill's canvas-first rule) — the drawing should appear in front of them.
 - **Read before you draw.** Fetch the canvas context first: place new work in clear space, reuse existing frames, and target real `shapeId` values instead of guessing.
 - **Structure first, content second.** Establish the container (a named frame) and regions before filling them; let the drawing build up visibly in logical steps.
 - **Let the server do layout math.** Use the arrange capability for aligning, spacing, and grids; reserve exact coordinates for when the user gave them.

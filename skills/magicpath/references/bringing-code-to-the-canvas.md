@@ -30,7 +30,7 @@ If the user has a MagicPath theme matching this brand, fetch it and reconcile ag
 
 ## Build
 
-1. Resolve a project (active project if one is open; otherwise ask or create one). Start the code session before writing files so the user sees agent presence — follow the server's session mechanics exactly as its tool descriptions and instructions state them.
+1. Resolve a project (active project if one is open; otherwise ask or create one). Start the code session before writing files so the user sees agent presence — follow the server's session mechanics exactly as its tool descriptions and instructions state them. If the project wasn't already open, give the user its canvas link now (see the skill's canvas-first rule) so they watch the build live.
 2. Fill in the scaffold the session returns. Implementation lives in `src/components/generated/`, split into sibling files for sub-components. Do not rewrite `src/App.tsx` beyond its theme value.
 3. Translate the source's styling into the canvas's Tailwind v4 conventions: CSS variables move into the existing `:root`/`.dark`/`@theme` blocks of `src/index.css` and are referenced as utilities; CSS-in-JS and CSS Modules flatten into utilities or appended plain CSS; a source Tailwind v3 config becomes `@theme` tokens (the canvas has no `tailwind.config.js`). Add font `@import`/`@font-face` declarations to `src/index.css`.
 4. Match visual details precisely — colors, spacing, radii, shadows, type family/size/weight/line-height, transitions — using the concrete values you resolved above.
