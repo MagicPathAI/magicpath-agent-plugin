@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "magicpath",
+  "displayName": "MagicPath",
+  "version": "0.7.0",
+  "description": "Design and build interactive UI on a shared canvas. Bring local code and repositories into MagicPath, install or export designs, and map ideas with diagrams, flowcharts, wireframes, user journeys, and annotations.",
+  "author": {
+    "name": "MagicPath",
+    "email": "support@magicpath.ai",
+    "url": "https://www.magicpath.ai"
+  },
+  "homepage": "https://www.magicpath.ai",
+  "repository": "https://github.com/MagicPathAI/magicpath-agent-plugin",
+  "license": "MIT",
+  "keywords": ["magicpath", "design", "ui-components", "design-system", "design-to-code", "mcp", "canvas"],
+  "mcpServers": {
+    "magicpath": {
+      "type": "http",
+      "url": "https://api.magicpath.ai/mcp"
+    }
+  }
+}

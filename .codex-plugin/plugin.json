@@ -1,0 +1,43 @@
+{
+  "name": "magicpath",
+  "version": "0.7.0",
+  "description": "MagicPath — give your agent a multiplayer canvas for your code.",
+  "author": {
+    "name": "MagicPath",
+    "email": "support@magicpath.ai",
+    "url": "https://www.magicpath.ai"
+  },
+  "homepage": "https://www.magicpath.ai",
+  "repository": "https://github.com/MagicPathAI/magicpath-agent-plugin",
+  "license": "MIT",
+  "keywords": [
+    "magicpath",
+    "design",
+    "ui-components",
+    "design-system",
+    "design-to-code",
+    "canvas"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "MagicPath",
+    "shortDescription": "Design on a shared canvas",
+    "longDescription": "Create and edit interactive UI on a multiplayer design canvas, bring local code and repositories to the canvas, and install or export MagicPath designs into local projects. You can also draw diagrams, flowcharts, wireframes, user journeys, and annotations directly on the shared canvas.",
+    "developerName": "MagicPath",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Create and edit UI designs",
+      "Move between canvas and code",
+      "Draw diagrams and wireframes"
+    ],
+    "websiteURL": "https://www.magicpath.ai",
+    "defaultPrompt": [
+      "Create a responsive landing page in MagicPath.",
+      "Bring this local interface to the MagicPath canvas.",
+      "Install the selected MagicPath design in this project."
+    ],
+    "brandColor": "#085C34",
+    "composerIcon": "./assets/composer.png",
+    "logo": "./assets/directory.png"
+  }
+}
