@@ -46,7 +46,7 @@ Never mix directions. Install/export/inspect tools read MagicPath → code; code
 - **Other people's personal projects are invisible.** A teammate's work lives only in team projects; never search personal scope for it.
 - **One authoring session per working directory.** Parallel sessions sharing a directory overwrite each other. Independent frames get independent directories and can be built concurrently.
 - **A failed build is not a dead end.** Fix the files and resubmit the same session, following the retry guidance in the tool result. Never create a new component to escape a build failure.
-- **Share one link at a time**, resolved through the share-URL tool. Never guess URL shapes.
+- **Links come from the share-URL tool** — never guess URL shapes. During discovery, share one candidate at a time; at completion, list every created design's link (see the canvas-links rule).
 
 ## Two gates — stop and wait for the user
 
@@ -68,17 +68,27 @@ Every component you create or edit on the canvas follows these rules unless the 
 
 Craft bar: deliberate visual hierarchy, strong typography, restrained color, semantic HTML, visible focus styles, and polished loading/empty/error states.
 
-## Put the user on the canvas before you work
+## Canvas links — open live, close with links
 
-Watching the agent build live on the canvas is the core MagicPath experience. Never make the user wait until the end for a link — by then the show is over.
+Watching the agent build live on the canvas is the core MagicPath experience. The link ritual has two ends: put the user on the canvas before the work, and hand them every result link after it.
+
+**Before the work:**
 
 - At the start of any canvas-writing work (component authoring or shape drawing), check whether the working project is already open among the user's active projects. If it is, they are watching; continue.
 - If it is not, resolve the project's URL with the share-URL tool as soon as the project exists — right after choosing or creating it, or right after the session that auto-creates it — and put the user on it **before** the long work begins.
 - With an embedded browser in the host, navigate it to the project URL and keep it there while you work.
 - Without one, give the user the link immediately as its own short message or opening line ("Watch live: <url>"), then continue building. Delivering the link only in the final summary is a failure of this rule.
-- Stay on the **project** canvas; do not open individual design previews unless explicitly asked — submitted work appears on the project canvas.
+
+**When the work is done:**
+
+- The completion message closes the loop with links: the project canvas URL, plus an individual share link for **every design created or edited** in the task — each resolved through the share-URL tool and labeled by name ("Pricing page — <url>"). Never make the user hunt the canvas for what you built.
+- Shape-only work (diagrams, wireframes, annotations) has no individual design URLs — the project link is the whole handoff.
+- Individual links are for the message, not for navigation: keep any embedded browser on the **project** canvas, and do not open individual design previews unless explicitly asked.
+
+**Always:**
+
 - MCP authorization and the browser's login are separate sessions: if the project URL redirects to sign-in, have the user sign in there, then reopen the same URL.
-- Keep the browser quiet for background or read-only work (listing, searching, fetching source, installing into local code).
+- Keep the browser and links quiet for background or read-only work (listing, searching, fetching source, installing into local code).
 
 ## Themes
 

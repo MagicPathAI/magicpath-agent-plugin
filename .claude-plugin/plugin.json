@@ -2,7 +2,7 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "magicpath",
   "displayName": "MagicPath",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Design and build interactive UI on a shared canvas. Bring local code and repositories into MagicPath, install or export designs, and map ideas with diagrams, flowcharts, wireframes, user journeys, and annotations.",
   "author": {
     "name": "MagicPath",
