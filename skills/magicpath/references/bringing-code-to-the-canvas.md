@@ -41,7 +41,7 @@ If the user has a MagicPath theme matching this brand, fetch it and reconcile ag
 
 ## Verify
 
-Compare the canvas result against the source side by side (project canvas or share URL): tokens resolved with no stray defaults, fonts loaded, dark mode matches where relevant, interactions behave like the original, and the component stays centered and intact at the target width while degrading sensibly when resized.
+Compare the canvas result against the source side by side (project canvas or share URL): tokens resolved with no stray defaults, fonts loaded, dark mode matches where relevant, interactions behave like the original, and the component stays centered and intact at the target width while degrading sensibly when resized. Then hand off per the skill's canvas-links rule: the project URL plus a named share link for each component created.
 
 ## Boundaries
 
