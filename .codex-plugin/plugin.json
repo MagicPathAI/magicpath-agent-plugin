@@ -1,6 +1,6 @@
 {
   "name": "magicpath",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "MagicPath — give your agent a multiplayer canvas for your code.",
   "author": {
     "name": "MagicPath",
@@ -22,7 +22,7 @@
   "interface": {
     "displayName": "MagicPath",
     "shortDescription": "Design on a shared canvas",
-    "longDescription": "Create and edit interactive UI on a multiplayer design canvas, bring local code and repositories to the canvas, and install or export MagicPath designs into local projects.",
+    "longDescription": "Create and edit interactive UI on a multiplayer design canvas, bring local code and repositories to the canvas, and install or export MagicPath designs into local projects. You can also draw diagrams, flowcharts, wireframes, user journeys, and annotations directly on the shared canvas.",
     "developerName": "MagicPath",
     "category": "Developer Tools",
     "capabilities": [

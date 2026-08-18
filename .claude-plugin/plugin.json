@@ -2,8 +2,8 @@
   "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "magicpath",
   "displayName": "MagicPath",
-  "version": "0.6.0",
-  "description": "MagicPath — give your agent a multiplayer canvas for your code. Connects to the MagicPath platform through the remote MagicPath MCP server and ships guidelines for using it as an Agent Skill.",
+  "version": "0.6.1",
+  "description": "Design and build interactive UI on a shared canvas. Bring local code and repositories into MagicPath, install or export designs, and map ideas with diagrams, flowcharts, wireframes, user journeys, and annotations.",
   "author": {
     "name": "MagicPath",
     "email": "support@magicpath.ai",
