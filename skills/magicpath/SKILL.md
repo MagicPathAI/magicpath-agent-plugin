@@ -32,7 +32,8 @@ Direction confusion is the main failure mode. Decide the direction first; load o
 | The user wants | Direction | Do |
 |---|---|---|
 | Use, install, or export a MagicPath design in local code; make local UI match a design; translate a design to another framework | MagicPath → code | Read [Using MagicPath designs in local code](references/using-magicpath-designs-in-local-code.md) before writing any files |
-| Create or edit a design on the canvas, including recreating local or repository UI in MagicPath | code → MagicPath | Apply the Design Defaults below; for recreating existing code or repos, read [Bringing code to the canvas](references/bringing-code-to-the-canvas.md) first |
+| Create a new design on the canvas | code → MagicPath | **Must read [Before generating a new design](references/before-generating-new-design.md) before choosing a visual direction or writing UI**, even with a detailed brief; apply the Design Defaults below |
+| Edit an existing design, or recreate local or repository UI in MagicPath | code → MagicPath | Preserve the existing design or source and apply the Design Defaults below; for recreating code or repos, read [Bringing code to the canvas](references/bringing-code-to-the-canvas.md) first; if creating a new canvas design, also read [Before generating a new design](references/before-generating-new-design.md) without replacing the source's visual direction |
 | Draw diagrams, flowcharts, wireframes, sticky notes, or annotations on the canvas (FigJam-style), or arrange existing canvas shapes | canvas shapes | Read [Drawing on the canvas](references/drawing-on-the-canvas.md) first — components stay the default for anything meant to look real or behave |
 | Browse, search, share, or answer questions about projects, components, teams, themes, images, or MagicPath skills | read-only | Call the tools directly; no reference needed |
 

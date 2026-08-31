@@ -19,7 +19,7 @@ The plugin is built on a strict layering rule — **every fact has exactly one a
 |---|---|---|---|
 | Trigger | skill frontmatter (~100 tokens, always loaded) | when to activate | the only always-on cost |
 | Judgment | `SKILL.md` body (loaded on trigger) | direction routing, host-side ground rules, two user gates, canvas Design Defaults | knowledge the server cannot know; stable across server releases |
-| Depth | `references/` (loaded on demand) | one playbook per direction: designs → local code, code → canvas | rarely both needed in one task |
+| Depth | `references/` (loaded on demand) | new-design art direction, plus playbooks for designs → local code, code → canvas, and native shapes | load the guidance needed for the current task |
 | Mechanics | the MCP server itself | tool names, schemas, session lifecycle, file boundaries, transport, auth, retry rules | delivered at call time, always current with the deployment |
 
 The skill deliberately contains **no tool mechanics**. It points at the live tool list and at the server's own guidance resources (`magicpath://guide`, `magicpath://host-guidance`) for clients that don't surface MCP server instructions automatically. Its standing rule: *on any conflict between skill and live server, the server wins.*
@@ -38,6 +38,7 @@ magicpath-agent-plugin/
 │   └── magicpath/
 │       ├── SKILL.md                     # routing, ground rules, gates, Design Defaults
 │       └── references/
+│           ├── before-generating-new-design.md          # required before each new design
 │           ├── using-magicpath-designs-in-local-code.md   # MagicPath → code
 │           ├── bringing-code-to-the-canvas.md             # code → MagicPath
 │           └── drawing-on-the-canvas.md                   # native canvas shapes
